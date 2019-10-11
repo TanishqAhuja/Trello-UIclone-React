@@ -22,7 +22,7 @@ class Boards extends React.Component {
     deleteBoard = (id) => {
         api.deleteBoard(id)
             .then(() => {
-                var newBoards = this.state.boards.filter((elem) => (elem != id))
+                var newBoards = this.state.boards.filter((elem) => (elem !== id))
                 this.setState({
                     boards: [...newBoards],
                 })
@@ -36,19 +36,18 @@ class Boards extends React.Component {
     }
 
     addBoard = (boardName) => {
-        console.log(this.state)
         api.addBoard(boardName)
             .then((res) => {
                 this.setState({
                     boards: [...this.state.boards, res["id"]],
-                }, console.log(this.state));
+                });
             })
     }
 
     render() {
         return (
             <>
-                <Header func={this.addBoard} item='Board'></Header>
+                <Header func={this.addBoard} item='Board' color='danger'></Header>
                 <div className="row mt-4 mx-4 text-center">
                     {this.displayBoards()}
                 </div>

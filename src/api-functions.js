@@ -6,7 +6,7 @@ var token = '391c8176285ee6d0c62a5dddc33419c94c44ddcb37ba1a1f210bb041761051ab';
 async function fetchUtil(setUrl, setMethod) {
     let response = await fetch(setUrl, { method: setMethod });
     let data = await response.json();
-    console.log(data);
+    // console.log(data);
     return data;
 };
 
@@ -30,10 +30,28 @@ function deleteBoard(id) {
     return fetchUtil(setUrl, "DELETE");
 }
 
+function getLists(boardId) {
+    let setUrl = `https://api.trello.com/1/boards/${boardId}/lists?key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "GET");
+}
+
+function addList(name) {
+    let setUrl = `https://api.trello.com/1/lists?name=${name}&key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "POST");
+}
+
+function getCards(listId) {
+    let setUrl = `https://api.trello.com/1/lists/${listId}/cards?fields=id,idList,name,idChecklists&key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "GET");
+}
+
 module.exports = {
     getMemberInfo,
     getBoard,
     addBoard,
     deleteBoard,
+    getLists,
+    addList,
+    getCards,
 }
 

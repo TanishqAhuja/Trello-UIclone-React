@@ -8,7 +8,6 @@ class Header extends React.Component {
 
     addItemHandeler = (e) => {
         e.preventDefault();
-        console.log(this.state);
         this.props.func(this.state.input);
     }
 
@@ -19,9 +18,10 @@ class Header extends React.Component {
     }
 
     render() {
+        const styles = `card-header text-center text-white bg-${this.props.color}`;
         return (
             <>
-                <div className="card-header text-center text-white bg-danger">
+                <div className={styles}>
                     <img alt='' src='https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png' />
                     <button className="btn float-right btn-outline-light mt-xs-3 py-3 px-2"
                         data-toggle="modal" data-target="#addModal">＋</button>
