@@ -1,5 +1,4 @@
 import React from 'react';
-import { CoverageMap } from 'istanbul-lib-coverage';
 // import { Link } from 'react-router-dom';
 var api = require('../api-functions');
 
@@ -9,12 +8,12 @@ class Board extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            status: 'loading',
-            details: {},
+            details: null,
             style: {
-                "object-fit": "cover",
+                "objectFit": "cover",
                 "height": "200px",
-            }
+                "background": "black",
+            },
         }
     }
 
@@ -22,35 +21,48 @@ class Board extends React.Component {
         api.getBoard(this.props.boardId)
             .then((res) => {
                 this.setState({
-                    status: 'done',
                     details: res,
                 })
-                console.log(this.state);
             });
     }
 
-    render() {
-        if (this.state.status === 'loading') {
-            return (
-                <div className="spinner-border text-warning" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            );
-        }
+    deleteBoard = (e) => {
+        this.props.deleteFunc(e.target.id);
+    }
 
-        if (this.state.status === 'done') {
-            return (
-                <div className="card w-25 bg-dark text-white">
-                    <img style={this.state.style}
-                        src={this.state.details.prefs.backgroundImage}
-                        className="card-img img-fluid" alt=""
-                    />
-                    <div className="card-img-overlay">
+    render() {
+        return (<>
+            {this.state.details ?
+                (<div className="card-body b-0 col-md-4 text-warning">
+                    {
+                        this.state.details.prefs.backgroundImage ?
+                            (
+                                <img style={this.state.style}
+                                    src={this.state.details.prefs.backgroundImage}
+                                    className="card-img rounded-lg shadow" alt=""
+                                    id={this.props.boardId}
+                                />
+                            )
+                            : (
+                                <div style={this.state.style}
+                                    className="card-img rounded-lg shadow"
+                                    id={this.props.boardId}></div>
+                            )
+                    }
+                    <div className="card-img-overlay mr-3 mt-2">
+                        <button onClick={this.deleteBoard}
+                            id={this.props.boardId}
+                            className="close card-title text-white">x</button>
+                    </div>
+                    <div className="card-img-overlay m-5">
                         <h5 className="card-title">{this.state.details.name}</h5>
                     </div>
-                </div>
-            );
-        }
+                </div>)
+                :
+                (<></>)
+            }
+        </>)
+
     }
 }
 
