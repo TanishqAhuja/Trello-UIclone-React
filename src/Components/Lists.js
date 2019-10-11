@@ -12,6 +12,16 @@ class Lists extends React.Component {
     }
 
     componentDidMount() {
+        api.getBoardBG(this.state.boardId)
+            .then((res) => {
+                if (res.backgroundImage) {
+                    document.body.style.backgroundImage = `url(${res.backgroundImage})`;
+                    document.body.style.backgroundSize = "100vw 100vh";
+                    document.body.style.backgroundRepeat = "no-repeat";
+                } else {
+                    document.body.style.backgroundColor = "grey";
+                }
+            })
         api.getLists(this.state.boardId)
             .then((res) => {
                 this.setState({
@@ -26,11 +36,11 @@ class Lists extends React.Component {
         ));
     }
 
-    addlist = (listName) => {
-        api.addlist(listName)
+    addList = (listName) => {
+        api.addList(this.state.boardId, listName)
             .then((res) => {
                 this.setState({
-                    lists: [...this.state.lists, res["id"]],
+                    lists: [res, ...this.state.lists],
                 });
             })
     }
@@ -38,8 +48,8 @@ class Lists extends React.Component {
     render() {
         return (
             <>
-                <Header func={this.addList} item='List' color='primary'></Header>
-                <div className="d-flex flex-row overflow-auto mt-4 b-0">
+                <Header func={this.addList} item='List' color='info'></Header>
+                <div className="d-flex flex-row overflow-auto mx-3 pb-4 mt-4 b-0">
                     {this.displayLists()}
                 </div>
             </>

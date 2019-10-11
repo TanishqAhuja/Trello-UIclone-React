@@ -20,8 +20,13 @@ function getBoard(id) {
     return fetchUtil(setUrl, "GET");
 }
 
+function getBoardBG(id) {
+    let setUrl = `https://api.trello.com/1/boards/${id}/prefs?key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "GET");
+}
+
 function addBoard(name) {
-    let setUrl = `https://api.trello.com/1/boards/?name=${name}&defaultLabels=true&defaultLists=true&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=lime&key=${key}&token=${token}`;
+    let setUrl = `https://api.trello.com/1/boards/?name=${name}&defaultLabels=true&defaultLists=true&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=grey&key=${key}&token=${token}`;
     return fetchUtil(setUrl, "POST");
 }
 
@@ -35,8 +40,8 @@ function getLists(boardId) {
     return fetchUtil(setUrl, "GET");
 }
 
-function addList(name) {
-    let setUrl = `https://api.trello.com/1/lists?name=${name}&key=${key}&token=${token}`;
+function addList(boardId, name) {
+    let setUrl = `https://api.trello.com/1/lists?name=${name}&idBoard=${boardId}&key=${key}&token=${token}`;
     return fetchUtil(setUrl, "POST");
 }
 
@@ -45,13 +50,26 @@ function getCards(listId) {
     return fetchUtil(setUrl, "GET");
 }
 
+function deleteCard(cardId) {
+    let setUrl = `https://api.trello.com/1/cards/${cardId}?key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "DELETE");
+}
+
+function addCard(listId, name) {
+    let setUrl = `https://api.trello.com/1/cards?name=${name}&pos=top&idList=${listId}&key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "POST");
+}
+
 module.exports = {
     getMemberInfo,
     getBoard,
+    getBoardBG,
     addBoard,
     deleteBoard,
     getLists,
     addList,
     getCards,
+    deleteCard,
+    addCard,
 }
 

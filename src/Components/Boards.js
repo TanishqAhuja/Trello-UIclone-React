@@ -11,6 +11,7 @@ class Boards extends React.Component {
     }
 
     componentDidMount() {
+        document.body.style.background = "none";
         api.getMemberInfo()
             .then((res) => {
                 this.setState({
@@ -47,7 +48,7 @@ class Boards extends React.Component {
     render() {
         return (
             <>
-                <Header func={this.addBoard} item='Board' color='danger'></Header>
+                <Header func={this.addBoard} item='Board' color='success'></Header>
                 <div className="row mt-4 mx-4 text-center">
                     {this.displayBoards()}
                 </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Header extends React.Component {
 
@@ -22,7 +23,9 @@ class Header extends React.Component {
         return (
             <>
                 <div className={styles}>
-                    <img alt='' src='https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png' />
+                    <Link to='/Boards'>
+                        <img alt='' src='https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png' />
+                    </Link>
                     <button className="btn float-right btn-outline-light mt-xs-3 py-3 px-2"
                         data-toggle="modal" data-target="#addModal">＋</button>
                 </div>

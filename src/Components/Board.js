@@ -12,7 +12,7 @@ class Board extends React.Component {
             style: {
                 "objectFit": "cover",
                 "height": "200px",
-                "background": "black",
+                "background": "grey",
             },
         }
     }
