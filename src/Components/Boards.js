@@ -8,6 +8,7 @@ class Boards extends React.Component {
 
     state = {
         boards: [],
+        Uname: '',
     }
 
     componentDidMount() {
@@ -16,6 +17,7 @@ class Boards extends React.Component {
             .then((res) => {
                 this.setState({
                     boards: res["idBoards"],
+                    Uname: res.fullName,
                 });
             });
     }
@@ -48,7 +50,7 @@ class Boards extends React.Component {
     render() {
         return (
             <>
-                <Header func={this.addBoard} item='Board' color='success'></Header>
+                <Header func={this.addBoard} item='Board' toDisplay={this.state.Uname} color='success'></Header>
                 <div className="row mt-4 mx-4 text-center">
                     {this.displayBoards()}
                 </div>

@@ -1,5 +1,5 @@
-// var Credentials = require('../Credential');
-
+var { getCredential } = require('./Credential');
+console.log(getCredential.getInstance().set('sachin', 'mk'))
 var key = 'c047d0f934322e9752fecd89febe8468';
 var token = '391c8176285ee6d0c62a5dddc33419c94c44ddcb37ba1a1f210bb041761051ab';
 
@@ -60,6 +60,11 @@ function addCard(listId, name) {
     return fetchUtil(setUrl, "POST");
 }
 
+function getCheckLists(cardId) {
+    let setUrl = `https://api.trello.com/1/cards/${cardId}/checklists?key=${key}&token=${token}`;
+    return fetchUtil(setUrl, "GET");
+};
+
 module.exports = {
     getMemberInfo,
     getBoard,
@@ -71,5 +76,6 @@ module.exports = {
     getCards,
     deleteCard,
     addCard,
+    getCheckLists,
 }
 

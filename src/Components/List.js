@@ -3,17 +3,23 @@ import React from 'react';
 import Card from './Card';
 var api = require('../api-functions');
 
-//, () => (console.log(this.state.details))
 class List extends React.Component {
 
     state = {
         cards: [],
         cardName: '',
         style: {
-            "maxHeight": "74vh",
-            "minHeight": "74vh",
+            "maxHeight": "79vh",
+            "minHeight": "79vh",
         },
+        showModal: false
     }
+
+    // addCardModalRef = React.createRef();
+
+    // componentDidMount() {
+    //     this.addCardModalRef.current.modal()
+    // }
 
     setName = (e) => {
         this.setState({
@@ -33,11 +39,12 @@ class List extends React.Component {
     deleteCard = (cardId) => {
         api.deleteCard(cardId)
             .then(() => {
-                var newCards = this.state.cards.filter((elem) => (elem !== cardId))
                 this.setState({
-                    cards: [...newCards],
+                    cards: this.state.cards.filter((card) => (card.id !== cardId)),
                 })
             })
+            .then(() => (console.log(this.state)))
+
     }
 
     displayCards = () => {
@@ -75,7 +82,7 @@ class List extends React.Component {
                 </div>
             </div>
 
-            <div className="modal fade" id="addCard" tabIndex="-1" role="dialog">
+            <div ref={this.addCardModalRef} className="modal fade" id="addCard" tabIndex="-1" role="dialog">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">

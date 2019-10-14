@@ -6,9 +6,7 @@ import Lists from './Components/Lists';
 function App() {
   return (
     <BrowserRouter>
-      <Route exact path='(/|/Boards)'>
-        <Boards />
-      </Route>
+      <Route exact path='(/|/Boards)' component={Boards} />
       <Route path='/Boards/:id'
         render={
           ({ match }) => (

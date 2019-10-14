@@ -23,6 +23,7 @@ class Header extends React.Component {
         return (
             <>
                 <div className={styles}>
+                    <span className="h5 float-left mt-3">{this.props.toDisplay}</span>
                     <Link to='/Boards'>
                         <img alt='' src='https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png' />
                     </Link>

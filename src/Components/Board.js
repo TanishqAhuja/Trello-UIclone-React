@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 var api = require('../api-functions');
 
 
@@ -9,13 +8,14 @@ class Board extends React.Component {
         super(props);
         this.state = {
             details: null,
-            style: {
-                "objectFit": "cover",
-                "height": "200px",
-                "background": "grey",
-            },
         }
     }
+
+    style = {
+        "objectFit": "cover",
+        "height": "200px",
+        "background": "grey",
+    };
 
     componentDidMount() {
         api.getBoard(this.props.boardId)
@@ -27,14 +27,16 @@ class Board extends React.Component {
     }
 
     BoardUrl = `/Boards/${this.props.boardId}`;
-    // OpenBoard = (e) => {
-    //     if (e.target !== ('div' | 'img'))
-    //         return;
-    //     window.location = this.BoardUrl;
-    // }
+    openBoard = (e) => {
+        console.log(e.target.tagName.toLowerCase());
+        if (e.target.tagName.toLowerCase() !== ('div' || 'h5')) {
+            return;
+        }
+        window.location = this.BoardUrl;
+    }
 
     deleteBoard = (e) => {
-        if (e.target.tagName.toLowerCase() !== ('div')) {
+        if (e.target.tagName.toLowerCase() !== ('button')) {
             return;
         }
         this.props.deleteFunc(e.target.id);
@@ -44,18 +46,18 @@ class Board extends React.Component {
         return (<>
             {this.state.details ?
                 (
-                    <Link to={this.BoardUrl} className="card-body b-0 col-md-4 text-warning">
+                    <div onClick={this.openBoard} className="card-body b-0 col-md-4 text-white">
                         {
                             this.state.details.prefs.backgroundImage ?
                                 (
-                                    <img style={this.state.style}
+                                    <img style={this.style}
                                         src={this.state.details.prefs.backgroundImage}
                                         className="card-img rounded-lg shadow" alt=""
                                         id={this.props.boardId}
                                     />
                                 )
                                 : (
-                                    <div style={this.state.style}
+                                    <div style={this.style}
                                         className="card-img rounded-lg shadow"
                                         id={this.props.boardId}>
                                     </div>
@@ -69,7 +71,7 @@ class Board extends React.Component {
                         <div className="card-img-overlay m-5">
                             <h5 className="card-title">{this.state.details.name}</h5>
                         </div>
-                    </Link>)
+                    </div>)
                 : (<></>)
             }
         </>);
