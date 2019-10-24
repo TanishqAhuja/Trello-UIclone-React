@@ -1,7 +1,7 @@
-var { getCredential } = require('./Credential');
-console.log(getCredential.getInstance().set('sachin', 'mk'))
-var key = 'c047d0f934322e9752fecd89febe8468';
-var token = '391c8176285ee6d0c62a5dddc33419c94c44ddcb37ba1a1f210bb041761051ab';
+// var { getCredential } = require('./Credential');
+// console.log(getCredential.getInstance().set('sachin', 'mk'))
+var key = '{-KEY-here-}';
+var token = '{-TOKEN-here-}';
 
 async function fetchUtil(setUrl, setMethod) {
     let response = await fetch(setUrl, { method: setMethod });
